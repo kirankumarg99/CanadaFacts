@@ -20,6 +20,8 @@ class FactsTableViewController: UITableViewController {
         tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.reuseIdentifier)
         tableView.estimatedRowHeight = 999
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorInset = .zero
+        tableView.layoutMargins = .zero
         tableView.allowsSelection = false
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(loadData), for: .valueChanged)
@@ -61,6 +63,10 @@ class FactsTableViewController: UITableViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     // MARK: UITableViewDataSource
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return factData?.facts.count ?? 0

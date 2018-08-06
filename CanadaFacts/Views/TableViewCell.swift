@@ -13,8 +13,8 @@ import Kingfisher
 
 class TableViewCell: UITableViewCell {
     
-    let titleLabel: UILabel = UILabel()
-    let descriptionLabel: UILabel = UILabel()
+    let factTitleLabel: UILabel = UILabel()
+    let factDescriptionLabel: UILabel = UILabel()
     let factImageView: UIImageView = UIImageView()
     var imageViewRatioConstraint: Constraint? = nil
     var imageViewHeightConstraint: Constraint? = nil
@@ -29,9 +29,9 @@ class TableViewCell: UITableViewCell {
     }
     //setting up views & Constraints
     func setupViews() {
-        titleLabel.font = UIFont.systemFont(ofSize: 24)
-        titleLabel.numberOfLines = 0
-        descriptionLabel.numberOfLines = 0
+        factTitleLabel.font = UIFont.systemFont(ofSize: 24)
+        factTitleLabel.numberOfLines = 0
+        factDescriptionLabel.numberOfLines = 0
         factImageView.contentMode = .scaleAspectFit
         let completeView = UIView()
         completeView.clipsToBounds = true
@@ -45,8 +45,8 @@ class TableViewCell: UITableViewCell {
         verticalStackView.axis = .vertical
         verticalStackView.distribution = .equalSpacing
         verticalStackView.spacing = 10
-        verticalStackView.addArrangedSubview(titleLabel)
-        verticalStackView.addArrangedSubview(descriptionLabel)
+        verticalStackView.addArrangedSubview(factTitleLabel)
+        verticalStackView.addArrangedSubview(factDescriptionLabel)
         
         let horizontalStackView = UIStackView()
         horizontalStackView.axis = .horizontal
@@ -69,8 +69,8 @@ class TableViewCell: UITableViewCell {
     }
     
     func displayData(_ fact: FactModel) {
-        titleLabel.text = fact.title
-        descriptionLabel.text = fact.description ?? "Description is not included"
+        factTitleLabel.text = fact.title
+        factDescriptionLabel.text = fact.description ?? "Description is not included"
         loadImage(fact)
         
         }
@@ -82,19 +82,19 @@ class TableViewCell: UITableViewCell {
             ImageDownloader.default.downloadImage(with: imageURL!, retrieveImageTask: nil, options: [], progressBlock: nil) { (image, error, url, data) in
         
                 //cache image:
-                if let image =  image, let url = url {
+                if let image =  image, let _ = url {
                     ImageCache.default.store(image, forKey: imageURL!.absoluteString)
                 }
             }
             ImageCache.default.retrieveImage(forKey: imageURL!.absoluteString, options: nil) {
                 image, cacheType in
-                if let image = image {
-                    //print("Get image \(image), cacheType: \(cacheType).")
+                if image != nil {
+                    
                     //We are storing the cache to disk
                     let resource = ImageResource(downloadURL: imageURL!, cacheKey:imageURL!.absoluteString)
                     self.factImageView.kf.setImage(with: resource, placeholder: self.defaultImage)
                 } else {
-                   // print("Not exist in cache.")
+                   
                     self.factImageView.kf.setImage(with: imageURL, placeholder: self.defaultImage)
                 }
             }

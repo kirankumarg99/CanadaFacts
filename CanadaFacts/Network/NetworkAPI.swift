@@ -16,7 +16,7 @@ enum APIError: Swift.Error {
 //Making Network request
 struct NetworkAPI {
     
-    private let urlString = URL_PATH
+    private let urlString = URL_STRING
 
     
     public func fetchData(completionHandler: ( @escaping (ResponseResult<FactInfo, APIError>) -> Void)) {

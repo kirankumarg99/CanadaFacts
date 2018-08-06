@@ -8,6 +8,7 @@
 
 import Foundation
 
-let URL_PATH = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
+let URL_STRING = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
 let NAME_OF_THE_ALERT = "Connection Error"
 let NO_CONNECTION = "Internet Connection is not available"
+let STATUS_OK_CODE = "Status code: 200"
